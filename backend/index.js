@@ -29,8 +29,7 @@ const corsOption={
 }
 
 app.use(cors(corsOption))
-// app.use(cors())
-// app.options('*',cors(corsOption))
+
 
 
 

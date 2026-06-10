@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 function job({job}) {
 
 
-
    const navigate=useNavigate();
    const daysAgoFunction=(mongodbTime)=>{
     const createdAt=new Date(mongodbTime);
@@ -16,7 +15,8 @@ function job({job}) {
     const timeDifferance=currentTime-createdAt
     return Math.floor(timeDifferance/(1000*24*60*60))
    }
-   
+    //console.log("company logo",job.company);
+    
     return (
         <div className='p-5 rounded-md shadow-xl border border-gray-100 text-left'>
 
@@ -39,7 +39,7 @@ function job({job}) {
 
                 <div>
                     <h1 className='font-md text-lg'>{job?.company?.name}</h1>
-                    <p className='text-sm text-gray-700'>India</p>
+                    <p className='text-sm text-gray-700'>{job?.location}</p>
                 </div>
 
             </div>

@@ -2,25 +2,24 @@ import React, { useEffect, useState } from 'react'
 import NavBar from './shared/NavBar'
 import FilterCard from './FilterCard'
 import Job from './job'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useGtAllJObs from './hooks/useGtAllJObs'
-// import { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { LogIn } from 'lucide-react'
+import { setSearchQuery } from '/@/redux/jobSlice.js'
 
 function Jobs() {
-
+  const dispatch=useDispatch()
     useGtAllJObs();
     const{allJobs,serchQuery}=useSelector(store=>store.job)
 
-    console.log("allobs in Jobs.jsx",allJobs);
+    
     
   const [filterJob,setFilterJob]=useState(allJobs)
   useEffect(()=>{
 if(serchQuery){
 const filterdJob=allJobs.filter((job)=>{
 
-    console.log("filterd,job inn Jobs.jsx",job);
-    console.log("Jobs.jsx queary",serchQuery);
     
     
     return job.title.toLowerCase().includes(serchQuery.toLowerCase())||
@@ -34,6 +33,11 @@ setFilterJob(filterdJob)
 }
   },[allJobs,serchQuery])
   
+  useEffect(() => {
+    return () => {
+        dispatch(setSearchQuery(""));
+    };
+}, []);
     
     return (
         <div>

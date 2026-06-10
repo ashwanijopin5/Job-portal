@@ -12,7 +12,6 @@ function useGtAllJObs() {
     const fetchAllJObs=async () => {
         try {
             const res=await axios.get(`${job_END_POINT}/get?keyword=${searchQuery}`,{withCredentials:true});
-            console.log("all job",res.data)
             
             if(res.data.success){
                 

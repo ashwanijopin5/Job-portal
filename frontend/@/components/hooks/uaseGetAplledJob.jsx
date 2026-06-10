@@ -17,7 +17,7 @@ useEffect(()=>{
       
         
             if(res.data.success){
-                console.log("fetchApplyJob",res.data);
+                //console.log("fetchApplyJob",res.data);
                 
             dispatch(setAllAplliedJob(res.data.application))
         }

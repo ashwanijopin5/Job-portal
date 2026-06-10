@@ -8,11 +8,11 @@ import { setSearchQuery } from '/@/redux/jobSlice'
 function CatagoryCrousel() {
 
     const catagory = [
-        "Fronrtend Devloper",
-        "Backend Devloper",
+        "Frontend Developer",
+        "Backend Developer",
         "MERN-Stack",
         "Full-Stack",
-        "Data Analytic",
+        "Data Analyst    ",
         "Graphic Designer"
     ]
 

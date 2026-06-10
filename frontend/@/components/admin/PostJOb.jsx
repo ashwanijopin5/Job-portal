@@ -31,8 +31,11 @@ const [loading,setLoading]=useState(false)
     const { companies } = useSelector(store => store.company)
 
     const selectChangeHandler = (value) => {
+        console.log("value:", value)
+    console.log("companies:", companies)
         const selectedcompany = companies.find((company) => company.name.toLowerCase() == value)
-        setInput({...input,companyId:selectedcompany._id})
+        console.log("selected:", selectedcompany);
+        setInput({...input,companyId:value})
     }
 
     const submitHandler=async(e)=>{
@@ -167,7 +170,7 @@ const [loading,setLoading]=useState(false)
                                                 {
                                                     companies.map((company) => {
                                                         return (
-                                                            <SelectItem key={company._id} value={company.name}>
+                                                            <SelectItem key={company._id} value={company._id}>
                                                                 {company.name}
                                                             </SelectItem>
                                                         )
