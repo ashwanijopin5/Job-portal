@@ -33,7 +33,7 @@ const [loading,setLoading]=useState(false)
     const selectChangeHandler = (value) => {
         console.log("value:", value)
     console.log("companies:", companies)
-        const selectedcompany = companies.find((company) => company.name.toLowerCase() == value)
+        const selectedcompany = companies.find((company) => company._id.toLowerCase() == value)
         console.log("selected:", selectedcompany);
         setInput({...input,companyId:value})
     }
