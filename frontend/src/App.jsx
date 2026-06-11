@@ -16,7 +16,7 @@ import CompanySetup from '/@/components/admin/CompanySetup'
 import PostJOb from '/@/components/admin/PostJOb'
 import Applicants from '/@/components/admin/Applicants'
 import ProtectedRoute from '/@/components/admin/protactedRoute'
-import EditJob from '/@/components/admin/EditJOb'
+import EditJob from '/@/components/admin/EditJob'
 
 const appRouter=createBrowserRouter([
 
