@@ -30,7 +30,10 @@ next();
 
    } catch (error) {
     console.log(error);
-    
+     return res.status(401).json({
+        success: false,
+        message: "authentication failed"
+    });
    } 
 }
 export default isAuthanticated
