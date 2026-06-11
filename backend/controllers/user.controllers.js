@@ -9,7 +9,7 @@ export const register = async (req, res) => {
     try {
 
         const { fullName, password, phoneNumber, email, role } = req.body;
-       
+
         if (!fullName || !password || !phoneNumber || !email || !role) {
 
             return res.status(400).json({
@@ -18,9 +18,9 @@ export const register = async (req, res) => {
             })
         }
 
-          const file=req.file;
-          const fileUri=getDataURi(file);
-          const cloudResponce= await cloudinary.uploader.upload(fileUri.content)
+        const file = req.file;
+        const fileUri = getDataURi(file);
+        const cloudResponce = await cloudinary.uploader.upload(fileUri.content)
 
         const user = await User.findOne({ email })
 
@@ -42,14 +42,14 @@ export const register = async (req, res) => {
             phoneNumber,
             password: hasedPass,
             role,
-            profile:{
-                profilePhoto:cloudResponce.secure_url
+            profile: {
+                profilePhoto: cloudResponce.secure_url
             }
         })
 
         return res.status(201).json({
             message: "account is created",
-           success:true
+            success: true
         })
 
     } catch (error) {
@@ -113,7 +113,12 @@ export const login = async (req, res) => {
             profile: user.profile
         }
 
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true,secure = true, sameSite: "none" }).json({
+        return res.status(200).cookie("token", token, {
+            maxAge: 1 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        }).json({
             message: `welcome back ${user.fullName}`,
             user,
             success: true
@@ -125,13 +130,14 @@ export const login = async (req, res) => {
 
 }
 
-export const logout=async (req,res) => {
+export const logout = async (req, res) => {
     try {
-        
-        return res.status(200).cookie("token","",{maxAge:0}).json(
-           { message:"logout successfully",
-              success:true
-           }
+
+        return res.status(200).cookie("token", "", { maxAge: 0 }).json(
+            {
+                message: "logout successfully",
+                success: true
+            }
         )
     } catch (error) {
         console.log(error)
@@ -140,43 +146,43 @@ export const logout=async (req,res) => {
 
 //update profile
 
-export const updateProfile=async (req,res) => {
+export const updateProfile = async (req, res) => {
     try {
-        const{fullName,email,phoneNumber,bio,skills}= req.body;
+        const { fullName, email, phoneNumber, bio, skills } = req.body;
 
- const file=req.file;
- const fileUri=getDataURi(file)
- const cloudResponce=await cloudinary.uploader.upload(fileUri.content)
-        
-        const skillArray=skills?skills.split(","):[];
-        const userId=req.id//middalwarw authantication
-        let user=await User.findById(userId)
-        if(!user){
+        const file = req.file;
+        const fileUri = getDataURi(file)
+        const cloudResponce = await cloudinary.uploader.upload(fileUri.content)
+
+        const skillArray = skills ? skills.split(",") : [];
+        const userId = req.id//middalwarw authantication
+        let user = await User.findById(userId)
+        if (!user) {
             return res.status(400).json(
                 {
-                    message:"user is not found",
-                    success:false
+                    message: "user is not found",
+                    success: false
                 }
             )
         }
 
-       if(fullName) user.fullName=fullName;
-       if(email)  user.email=email;
-      if(phoneNumber)   user.phoneNumber=phoneNumber;
-       if(bio)  user.profile.bio=bio;
-       if(skillArray.length)  user.profile.skills=skillArray;
+        if (fullName) user.fullName = fullName;
+        if (email) user.email = email;
+        if (phoneNumber) user.phoneNumber = phoneNumber;
+        if (bio) user.profile.bio = bio;
+        if (skillArray.length) user.profile.skills = skillArray;
 
-       if(cloudResponce){
-        user.profile.resume=cloudResponce.secure_url //save th cloudinary
-        user.profile.resumeOriginalName=file.originalname ///save the file name
-       }
+        if (cloudResponce) {
+            user.profile.resume = cloudResponce.secure_url //save th cloudinary
+            user.profile.resumeOriginalName = file.originalname ///save the file name
+        }
 
         //resume come later here
 
         await user.save()
 
 
-           user = {
+        user = {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
@@ -185,12 +191,12 @@ export const updateProfile=async (req,res) => {
             profile: user.profile
         }
 
-         return res.status(200).json({
+        return res.status(200).json({
 
-            message:"profile updated succefully",
+            message: "profile updated succefully",
             user,
-            success:true
-         })
+            success: true
+        })
 
     } catch (error) {
         console.log(error)
